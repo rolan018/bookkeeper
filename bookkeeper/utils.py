@@ -2,7 +2,22 @@
 Вспомогательные функции
 """
 
-from typing import Iterable, Iterator
+from typing import Any, Iterable, Iterator
+
+
+def _type_converter(fields: dict[str, Any]) -> str:
+    """
+    Convert python type to sqlite data types
+    """
+    new_fields = {}
+    for key, value in fields.items():
+        if str(value) == 'str':
+            new_fields[key] = 'TEXT'
+        if str(value) == 'int':
+            new_fields[key] = 'INTEGER'
+        if str(value) == 'datetime':
+            new_fields[key] = 'DATETIME'
+    return "(" + ', '.join(f'{key} {val}' for key, val in new_fields.items()) + ")"
 
 
 def _get_indent(line: str) -> int:
