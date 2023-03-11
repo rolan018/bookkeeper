@@ -15,7 +15,7 @@ def _type_converter(fields: dict[str, Any]) -> str:
             new_fields[key] = 'TEXT'
         if str(value) == "<class 'int'>":
             new_fields[key] = 'INTEGER'
-        if str(value) == "<class 'datetime'>":
+        if str(value) == "<class 'datetime.datetime'>":
             new_fields[key] = 'DATETIME'
     return "(" + ', '.join(f'{key} {val}' for key, val in new_fields.items()) + ")"
 
