@@ -1,7 +1,6 @@
 """
 Модуль описывает репозиторий, работающий с базой данных SQLite
 """
-
 import sqlite3
 from inspect import get_annotations
 from typing import Any
@@ -32,7 +31,8 @@ class SQLiteRepository(AbstractRepository[T]):
         values = [getattr(obj, x) for x in self.fields]
         names_field = ", ".join(self.fields.keys())
         insert_point = ", ".join("?" * len(self.fields))
-        with sqlite3.connect(self.db_file) as conn, conn.cursor() as cur:
+        with sqlite3.connect(self.db_file) as conn:
+            cur = conn.cursor()
             cur.execute('PRAGMA foreign_keys = ON')
             cur.execute(
                 f'CREATE TABLE IF NOT EXISTS {self.table_name} ' +
@@ -47,7 +47,8 @@ class SQLiteRepository(AbstractRepository[T]):
         return obj.pk
 
     def get(self, pk: int) -> T | None:
-        with sqlite3.connect(self.db_file) as conn, conn.cursor() as cur:
+        with sqlite3.connect(self.db_file) as conn:
+            cur = conn.cursor()
             try:
                 row = cur.execute(
                     f'SELECT * FROM {self.table_name} WHERE ROWID=={pk};'
@@ -61,11 +62,11 @@ class SQLiteRepository(AbstractRepository[T]):
             except sqlite3.Error as err:
                 print(f"[ERROR]:Get method error:{str(err)}")
                 return None
-            finally:
-                conn.close()
+        conn.close()
 
     def get_all(self, where: dict[str, Any] | None = None) -> list[T]:
-        with sqlite3.connect(self.db_file) as conn, conn.cursor() as cur:
+        with sqlite3.connect(self.db_file) as conn:
+            cur = conn.cursor()
             try:
                 if where is None:
                     rows = cur.execute(
@@ -88,13 +89,13 @@ class SQLiteRepository(AbstractRepository[T]):
             except sqlite3.Error as err:
                 print(f"[ERROR]:Get_All method error:{str(err)}")
                 return []
-            finally:
-                conn.close()
+        conn.close()
 
     def update(self, obj: T) -> None:
         limitations = ", ".join(f"{field} = ?" for field in self.fields.keys())
         values = [getattr(obj, f) for f in self.fields]
-        with sqlite3.connect(self.db_file) as conn, conn.cursor() as cur:
+        with sqlite3.connect(self.db_file) as conn:
+            cur = conn.cursor()
             cur.execute('PRAGMA foreign_keys = ON')
             try:
                 cur.execute(
@@ -106,11 +107,11 @@ class SQLiteRepository(AbstractRepository[T]):
                     raise ValueError('[ERROR]:Attempt to update object with unknown primary key')
             except sqlite3.Error as err:
                 print(f"[ERROR]:Update method error:{str(err)}")
-            finally:
-                conn.close()
+        conn.close()
 
     def delete(self, pk: int) -> None:
-        with sqlite3.connect(self.db_file) as conn, conn.cursor() as cur:
+        with sqlite3.connect(self.db_file) as conn:
+            cur = conn.cursor()
             try:
                 cur.execute(
                     f'DELETE FROM {self.table_name} WHERE ROWID=={pk};'
@@ -119,5 +120,4 @@ class SQLiteRepository(AbstractRepository[T]):
                     raise ValueError('[ERROR]:Аttempt to delete object with unknown primary key')
             except sqlite3.Error as err:
                 print(f"[ERROR]:Delete method error:{str(err)}")
-            finally:
-                conn.close()
+        conn.close()
