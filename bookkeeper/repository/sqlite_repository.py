@@ -104,7 +104,8 @@ class SQLiteRepository(AbstractRepository[T]):
                     values
                 )
                 if cur.rowcount == 0:
-                    raise ValueError('[ERROR]:Attempt to update object with unknown primary key')
+                    raise ValueError('[ERROR]:Attempt to update' +
+                                     ' object with unknown primary key')
             except sqlite3.Error as err:
                 print(f"[ERROR]:Update method error:{str(err)}")
         conn.close()
@@ -117,7 +118,8 @@ class SQLiteRepository(AbstractRepository[T]):
                     f'DELETE FROM {self.table_name} WHERE ROWID=={pk};'
                 )
                 if cur.rowcount == 0:
-                    raise ValueError('[ERROR]:Аttempt to delete object with unknown primary key')
+                    raise ValueError('[ERROR]:Аttempt to delete object' +
+                                     ' with unknown primary key')
             except sqlite3.Error as err:
                 print(f"[ERROR]:Delete method error:{str(err)}")
         conn.close()
