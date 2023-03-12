@@ -42,8 +42,8 @@ class LabelLine(QtWidgets.QWidget):
         if self.validator_type == 'number':
             self.name.setValidator(QtGui.QIntValidator(1, 10_000_000, self))
         elif self.validator_type == 'string':
-            self.name.setValidator(QtGui.QRegularExpressionValidator('^[а-яА-ЯёЁa-zA-Z0-9]+$',
-                                                                     self))
+            reg = '^[а-яА-ЯёЁa-zA-Z0-9]+$'
+            self.name.setValidator(QtGui.QRegularExpressionValidator(reg, self))
         self.layout.addWidget(self.name, stretch=5)
 
     def clear(self):
