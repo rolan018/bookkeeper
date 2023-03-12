@@ -11,12 +11,14 @@ def _type_converter(fields: dict[str, Any]) -> str:
     """
     new_fields = {}
     for key, value in fields.items():
-        if str(value) == "<class 'str'>":
+        if 'str' in str(value):
             new_fields[key] = 'TEXT'
-        if str(value) == "<class 'int'>":
+        if 'int' in str(value):
             new_fields[key] = 'INTEGER'
-        if str(value) == "<class 'datetime.datetime'>":
+        if 'datetime' in str(value):
             new_fields[key] = 'DATETIME'
+        if 'float' in str(value):
+            new_fields[key] = 'REAL'
     return "(" + ', '.join(f'{key} {val}' for key, val in new_fields.items()) + ")"
 
 
