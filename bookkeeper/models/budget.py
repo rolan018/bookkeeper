@@ -20,7 +20,7 @@ class Budget: # pylint: disable=too-few-public-methods
     name: str = 'Период по умолчанию'
     begin_period_date: datetime = field(default_factory=datetime.now)
     end_period_date: datetime = field(default_factory=datetime.now)
-    value: float = 0
+    value: int = 0
     pk: int = 0
 
     def calculate(self, data: list[Expense]) -> float:
