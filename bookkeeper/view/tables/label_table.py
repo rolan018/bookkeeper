@@ -21,6 +21,10 @@ class LabelTable(QtWidgets.QWidget):
                  *args,
                  **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        # Titles
+        self.window_title_delete = 'Удалить покупку'
+        self.window_title_add = 'Добавить покупку'
+
         # list categories
         self.repo = repo
         self.category_repo = category_repo
@@ -68,7 +72,7 @@ class LabelTable(QtWidgets.QWidget):
         pass
         """
         self.dlg = QtWidgets.QDialog()
-        self.dlg.setWindowTitle('Добавить покупку')
+        self.dlg.setWindowTitle(self.window_title_add)
         layout = QtWidgets.QVBoxLayout()
         self.dlg_widgets = []
         for element in self.repo.fields:
@@ -120,10 +124,10 @@ class LabelTable(QtWidgets.QWidget):
         pass
         """
         self.dlg = QtWidgets.QDialog()
-        self.dlg.setWindowTitle('Удалить запись')
+        self.dlg.setWindowTitle(self.window_title_delete)
         layout = QtWidgets.QVBoxLayout()
         label_line = LabelLine(label_text="PK",
-                               place_holder="Введите PK записи, которую хотите удалить")
+                               place_holder="Введите PK записи")
         self.dlg_widgets.append(label_line)
         layout.addWidget(label_line)
 

@@ -24,6 +24,11 @@ class BudgetTable(LabelTable):
                          table_name=table_name,
                          *args,
                          **kwargs)
+        # Titles
+        self.window_title_delete = 'Удалить бюджет'
+        self.window_title_add = 'Добавить бюджет'
+
+        # rep additionally
         self.expense_repo = expense_repo
 
     def refresh_click(self) -> None:
