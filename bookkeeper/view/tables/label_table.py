@@ -75,21 +75,26 @@ class LabelTable(QtWidgets.QWidget):
         self.dlg.setWindowTitle(self.window_title_add)
         layout = QtWidgets.QVBoxLayout()
         self.dlg_widgets = []
-        for element in self.repo.fields:
-            if element == 'category':
+        for element in self.repo.fields.items():
+            if element[0] == 'category':
                 # get categories from category repo
                 cats = [cat.name for cat in self.category_repo.get_all()]
-                label_combo_box = LabelComboBox(label_text=element,
+                label_combo_box = LabelComboBox(label_text=element[0],
                                                 items=cats)
                 layout.addWidget(label_combo_box)
                 self.dlg_widgets.append(label_combo_box)
-            elif 'date' in element:
-                date_time_box = DateTimeWidget(label_text=str(element))
+            elif 'date' in element[0]:
+                date_time_box = DateTimeWidget(label_text=str(element[0]))
                 layout.addWidget(date_time_box)
                 self.dlg_widgets.append(date_time_box)
             else:
-                label_line = LabelLine(label_text=str(element),
-                                       place_holder="Введите значение")
+                if 'int' in str(element[1]) or 'float' in str(element[1]):
+                    label_line = LabelLine(label_text=str(element[0]),
+                                           place_holder="Введите значение",
+                                           validator_type='number')
+                else:
+                    label_line = LabelLine(label_text=str(element[0]),
+                                           place_holder="Введите значение")
                 layout.addWidget(label_line)
                 self.dlg_widgets.append(label_line)
 
