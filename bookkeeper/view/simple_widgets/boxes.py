@@ -71,8 +71,12 @@ class LabelComboBox(QtWidgets.QWidget):
         return self.combo_box.currentText()
 
     def set_items(self):
+        new_items = []
+        for item in self.items:
+            if item != '':
+                new_items.append(item.strip())
         self.combo_box.clear()
-        self.combo_box.addItems(self.items)
+        self.combo_box.addItems(new_items)
 
         if len(self.items) != 0:
             self.combo_box.setPlaceholderText(self.items[0])
