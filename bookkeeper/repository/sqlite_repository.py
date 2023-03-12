@@ -19,6 +19,7 @@ class SQLiteRepository(AbstractRepository[T]):
     ob_cls: type
 
     def __init__(self, db_file: str, cls: type) -> None:
+        super().__init__()
         self.db_file = db_file
         self.ob_cls = cls
         self.table_name = cls.__name__.lower()
@@ -49,24 +50,24 @@ class SQLiteRepository(AbstractRepository[T]):
     def get(self, pk: int) -> T | None:
         with sqlite3.connect(self.db_file) as conn:
             cur = conn.cursor()
+            obj = None
             try:
                 row = cur.execute(
                     f'SELECT * FROM {self.table_name} WHERE ROWID=={pk};'
                 ).fetchone()
-                if row is None:
-                    return None
-                kwargs = dict(zip(self.fields, row))
-                obj = self.ob_cls(**kwargs)
-                obj.pk = pk
-                return obj
+                if row is not None:
+                    kwargs = dict(zip(self.fields, row))
+                    obj = self.ob_cls(**kwargs)
+                    obj.pk = pk
             except sqlite3.Error as err:
                 print(f"[ERROR]:Get method error:{str(err)}")
-                return None
         conn.close()
+        return obj
 
     def get_all(self, where: dict[str, Any] | None = None) -> list[T]:
         with sqlite3.connect(self.db_file) as conn:
             cur = conn.cursor()
+            obj_list = []
             try:
                 if where is None:
                     rows = cur.execute(
@@ -79,17 +80,15 @@ class SQLiteRepository(AbstractRepository[T]):
                         + f'WHERE {limitations}',
                         list(where.values())
                     ).fetchall()
-                obj_list = []
                 for row in rows:
                     kwargs = dict(zip(self.fields, row[1:]))
                     obj = self.ob_cls(**kwargs)
                     obj.pk = row[0]
                     obj_list.append(obj)
-                return obj_list
             except sqlite3.Error as err:
                 print(f"[ERROR]:Get_All method error:{str(err)}")
-                return []
         conn.close()
+        return obj_list
 
     def update(self, obj: T) -> None:
         limitations = ", ".join(f"{field} = ?" for field in self.fields.keys())
