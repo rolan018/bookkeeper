@@ -1,3 +1,6 @@
+"""
+    pass
+"""
 from PySide6 import QtWidgets
 
 

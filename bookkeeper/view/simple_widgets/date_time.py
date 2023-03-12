@@ -1,3 +1,7 @@
+"""
+    pass
+"""
+
 from PySide6 import QtWidgets
 from PySide6.QtCore import QDateTime
 
@@ -12,19 +16,21 @@ class DateTimeWidget(QtWidgets.QWidget):
                  *args,
                  **kwargs):
         super().__init__(*args, **kwargs)
-
         # layout
         self.layout = QtWidgets.QHBoxLayout()
         self.setLayout(self.layout)
 
-        # Label
+        # label
         self.label = QtWidgets.QLabel(label_text)
         self.layout.addWidget(self.label, stretch=1)
 
-        # Combo Box with items
+        # datetime
         self.date_time = QtWidgets.QDateTimeEdit()
         self.date_time.setDateTime(QDateTime.currentDateTime())
         self.layout.addWidget(self.date_time, stretch=1)
 
     def text(self):
+        """
+        pass
+        """
         return self.date_time.dateTime().toPython()
