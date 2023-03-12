@@ -24,8 +24,6 @@ T = TypeVar('T', bound=Model)
 class AbstractRepository(ABC, Generic[T]):
     """
     Абстрактный репозиторий.
-    Абстрактные атрибуты:
-    fields
     Абстрактные методы:
     add
     get
@@ -34,12 +32,8 @@ class AbstractRepository(ABC, Generic[T]):
     delete
     """
 
-    @property
-    @abstractmethod
-    def fields(self) -> dict[str, Any]:
-        """
-        Атрибут содержащий поля объекта репозитория
-        """
+    def __init__(self):
+        self.fields = None
 
     @abstractmethod
     def add(self, obj: T) -> int:
