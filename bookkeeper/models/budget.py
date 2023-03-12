@@ -9,7 +9,7 @@ from bookkeeper.models.expense import Expense
 @dataclass(slots=True)
 class Budget: # pylint: disable=too-few-public-methods
     """
-    Бюджет (совокупность расходов за период времени).
+    Бюджет
     name - название периода
     begin_period_date - дата начала отсчета
     end_period_date - дата конца отсчета
