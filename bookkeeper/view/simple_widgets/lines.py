@@ -37,7 +37,7 @@ class LabelLine(QtWidgets.QWidget):
         if validator_type in 'number string'.split():
             self.validator_type = validator_type
         else:
-            raise ValueError(f"Param: validator_type must be 'string' or 'number'")
+            raise ValueError("Param: validator_type must be 'string' or 'number'")
 
         if self.validator_type == 'number':
             self.name.setValidator(QtGui.QIntValidator(1, 10_000_000, self))
@@ -47,7 +47,13 @@ class LabelLine(QtWidgets.QWidget):
         self.layout.addWidget(self.name, stretch=5)
 
     def clear(self):
+        """
+            pass
+        """
         self.name.setText(self.place_holder)
 
     def text(self):
+        """
+            pass
+        """
         return self.name.text()
