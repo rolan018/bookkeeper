@@ -1,5 +1,5 @@
 """
-    pass
+    Widget for processing line values
 """
 from PySide6 import QtWidgets, QtGui
 
@@ -46,14 +46,14 @@ class LabelLine(QtWidgets.QWidget):
             self.name.setValidator(QtGui.QRegularExpressionValidator(reg, self))
         self.layout.addWidget(self.name, stretch=5)
 
-    def clear(self):
+    def clear(self) -> None:
         """
-            pass
+        Сlear the field
         """
         self.name.setText(self.place_holder)
 
-    def text(self):
+    def text(self) -> str:
         """
-            pass
+        Return the entered text in the field
         """
         return self.name.text()

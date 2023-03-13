@@ -1,5 +1,5 @@
 """
-    pass
+    Widget for processing combo values
 """
 from PySide6 import QtWidgets
 from PySide6.QtCore import Qt
@@ -34,21 +34,21 @@ class LabelComboBox(QtWidgets.QWidget):
         self.set_items()
         self.layout.addWidget(self.combo_box, stretch=5)
 
-    def clear(self):
+    def clear(self) -> None:
         """
-            pass
+        Сlear the field
         """
         self.combo_box.setCurrentText(self.combo_box.placeholderText())
 
-    def text(self):
+    def text(self) -> str:
         """
-            pass
+        Return the entered text in the field
         """
         return self.combo_box.currentText()
 
-    def set_items(self):
+    def set_items(self) -> None:
         """
-            pass
+        Set values to fields
         """
         new_items = []
         for item in self.items:
@@ -61,5 +61,4 @@ class LabelComboBox(QtWidgets.QWidget):
             self.combo_box.setPlaceholderText(self.items[0])
         else:
             self.combo_box.setPlaceholderText("...")
-
         self.clear()

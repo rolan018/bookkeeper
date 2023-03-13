@@ -2,8 +2,8 @@
 This is Main Window
 """
 from PySide6 import QtWidgets
-from bookkeeper.view.tables.label_table import LabelTable
-from bookkeeper.view.tables.budget_table import BudgetTable
+from bookkeeper.view.table_widgets.label_table import LabelTable
+from bookkeeper.view.table_widgets.budget_table import BudgetTable
 from bookkeeper.repository.abstract_repository import AbstractRepository
 from bookkeeper.models.budget import Budget
 from bookkeeper.models.expense import Expense
@@ -12,13 +12,14 @@ from bookkeeper.models.category import Category
 
 class MainWindow(QtWidgets.QWidget):
     """
-    Main Window
+    Application main menu
     """
     def __init__(self,
                  expenses_repo: AbstractRepository[Expense],
                  budget_repo: AbstractRepository[Budget],
                  category_repo: AbstractRepository[Category],
-                 *args, **kwargs) -> None:
+                 *args,
+                 **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.setWindowTitle('BookKeeper')
         self.layout = QtWidgets.QVBoxLayout()

@@ -12,7 +12,7 @@ from bookkeeper.models.category import Category
 
 class LabelTable(QtWidgets.QWidget):
     """
-    Label TABLE
+    Label TABLE (main table widget)
     """
     def __init__(self,
                  repo: AbstractRepository[T],
@@ -56,7 +56,7 @@ class LabelTable(QtWidgets.QWidget):
 
     def refresh_click(self) -> None:
         """
-        pass
+        Refresh the table
         """
         result = self.repo.get_all()
         to_table = []
@@ -69,7 +69,7 @@ class LabelTable(QtWidgets.QWidget):
 
     def add_menu(self) -> None:
         """
-        pass
+        Add a menu widget
         """
         self.dlg = QtWidgets.QDialog()
         self.dlg.setWindowTitle(self.window_title_add)
@@ -111,13 +111,13 @@ class LabelTable(QtWidgets.QWidget):
 
     def cancel(self) -> None:
         """
-        pass
+        Сlose the widget
         """
         self.dlg.close()
 
     def add_click(self) -> None:
         """
-        pass
+        Add data to table
         """
         to_table = [widget.text() for widget in self.dlg_widgets]
         self.repo.add(self.repo.ob_cls(*to_table))
@@ -126,7 +126,7 @@ class LabelTable(QtWidgets.QWidget):
 
     def del_menu(self) -> None:
         """
-        pass
+        Open delete entry menu
         """
         self.dlg = QtWidgets.QDialog()
         self.dlg.setWindowTitle(self.window_title_delete)
@@ -148,7 +148,7 @@ class LabelTable(QtWidgets.QWidget):
 
     def del_click(self) -> None:
         """
-        pass
+        Delete entry
         """
         try:
             self.repo.delete(int(self.dlg_widgets[-1].text()))
@@ -160,7 +160,7 @@ class LabelTable(QtWidgets.QWidget):
 
     def add_data(self, data: list) -> None:
         """
-        pass
+        Add data to table
         """
         for num_i, row in enumerate(data):
             for num_j, x in enumerate(row):

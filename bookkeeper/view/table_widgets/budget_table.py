@@ -1,7 +1,7 @@
 """
-Budget Table
+Budget Table stands for Manipulate with repository using Budget.
 """
-from bookkeeper.view.tables.label_table import LabelTable
+from bookkeeper.view.table_widgets.label_table import LabelTable
 from bookkeeper.repository.abstract_repository import AbstractRepository
 from bookkeeper.models.budget import Budget
 from bookkeeper.models.expense import Expense
@@ -33,7 +33,7 @@ class BudgetTable(LabelTable):
 
     def refresh_click(self) -> None:
         """
-        pass
+        Refresh the table
         """
         data = self.expense_repo.get_all()
         for period in self.repo.get_all():
