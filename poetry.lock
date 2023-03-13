@@ -517,6 +517,25 @@ pytest = ">=4.6"
 testing = ["fields", "hunter", "process-tests", "pytest-xdist", "six", "virtualenv"]
 
 [[package]]
+name = "pytest-qt"
+version = "4.2.0"
+description = "pytest support for PyQt and PySide applications"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytest-qt-4.2.0.tar.gz", hash = "sha256:00a17b586dd530b6d7a9399923a40489ca4a9a309719011175f55dc6b5dc8f41"},
+    {file = "pytest_qt-4.2.0-py2.py3-none-any.whl", hash = "sha256:a7659960a1ab2af8fc944655a157ff45d714b80ed7a6af96a4b5bb99ecf40a22"},
+]
+
+[package.dependencies]
+pytest = ">=3.0.0"
+
+[package.extras]
+dev = ["pre-commit", "tox"]
+doc = ["sphinx", "sphinx-rtd-theme"]
+
+[[package]]
 name = "shiboken6"
 version = "6.4.2"
 description = "Python/C++ bindings helper module"
@@ -656,4 +675,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "51d3e433fa4d0fbcdab3bed8b0e01a8bbdc540740e2b93cf3dd4794b466da6bb"
+content-hash = "84e03d3fa3e48e8517a4a6095a929268dc54364efdd9b374457ab0faa9891ab1"
