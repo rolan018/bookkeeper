@@ -32,6 +32,9 @@ class AbstractRepository(ABC, Generic[T]):
     delete
     """
 
+    def __init__(self):
+        self.fields = None
+
     @abstractmethod
     def add(self, obj: T) -> int:
         """

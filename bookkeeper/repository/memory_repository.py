@@ -14,6 +14,7 @@ class MemoryRepository(AbstractRepository[T]):
     """
 
     def __init__(self) -> None:
+        super().__init__()
         self._container: dict[int, T] = {}
         self._counter = count(1)
 
